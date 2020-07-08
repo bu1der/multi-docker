@@ -3,25 +3,25 @@ services:
   - docker
 
 before_install:
-  - docker build -t bui1der/react-test -f ./client/Dockerfile.dev ./client
+  - sudo docker build -t bui1der/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true bui1der/react-test npm test
+  - sudo docker run -e CI=true bui1der/react-test npm test
 
 after_success:
-  - docker build bui1der/multi-client ./client
-  - docker build bui1der/multi-nginx ./nginx
-  - docker build bui1der/multi-server ./server
-  - docker build bui1der/multi-worker ./worker
+  - sudo docker build bui1der/multi-client ./client
+  - sudo docker build bui1der/multi-nginx ./nginx
+  - sudo docker build bui1der/multi-server ./server
+  - sudo docker build bui1der/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   
   #Take those images and push them to docker hub
-  - docker push bui1der/multi-client
-  - docker push bui1der/multi-nginx
-  - docker push bui1der/multi-server
-  - docker push bui1der/multi-worker
+  - sudo docker push bui1der/multi-client
+  - sudo docker push bui1der/multi-nginx
+  - sudo docker push bui1der/multi-server
+  - sudo docker push bui1der/multi-worker
 
 language: generic 
 
